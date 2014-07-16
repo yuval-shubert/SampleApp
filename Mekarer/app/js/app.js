@@ -7,10 +7,13 @@ angular.module('myApp', [
   'myApp.filters',
   'myApp.services',
   'myApp.directives',
-  'myApp.controllers'
+  'myApp.controllers',
+  'ui.bootstrap'
 ]).
 config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/view1', {templateUrl: 'partials/partial1.html', controller: 'MyCtrl1'});
-  $routeProvider.when('/view2', {templateUrl: 'partials/partial2.html', controller: 'MyCtrl2'});
-  $routeProvider.otherwise({redirectTo: '/view1'});
+  $routeProvider.when('/Search_Recipe', {templateUrl: 'partials/Search_Recipe.html', controller: 'MyCtrl1'});
+  $routeProvider.when('/Favorite_Recipe', {templateUrl: 'partials/Favorite_Recipe.html', controller: 'MyCtrl2'});
+  $routeProvider.when('/My_Recipe', {templateUrl: 'partials/My_Recipe.html', controller: 'MyCtrl3'});
+  $routeProvider.when('/Add_Recipe', {templateUrl: 'partials/Add_Recipe.html', controller: 'MyCtrl4'});
+  $routeProvider.otherwise({redirectTo: '/Search_Recipe.html'});
 }]);
