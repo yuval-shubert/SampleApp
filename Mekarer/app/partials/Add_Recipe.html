@@ -1,3 +1,16 @@
+<div ng-controller="DropdownCtrl">
+    <span ng-model="sholi">זמן הכנה</span>
+    <!-- Single button -->
+    <div class="btn-group" dropdown is-open="status.isopen">
+      <button type="button" class="btn btn-primary dropdown-toggle"  ng-disabled="disabled">
+        Button dropdown <span class="caret"  ></span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        <li><a href="#"></a></li>
+        <li><a href="#">Another action</a></li>
+        <li><a href="#">Something else here</a></li>
+        <li><a href="#">Separated link</a></li>
+      </ul>
 
 <div  dir="rtl" ng-controller="AddRecipe" align="center">
    <div>
@@ -10,7 +23,7 @@
    </div>
    <div>
        <span>השם שלי:</span>
-       <input ng-model = 'recipe.owner'>
+       <input ng-model ='recipe.owner'>
    </div>
     <br>
    <div>
@@ -34,9 +47,24 @@
     <button type="button" align="center" class="btn btn-primary" ng-model="singleModel" ng-click='printConsole()' btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
        console
     </button>
+    <br>
+    <br>
 
-    <div ng-repeat="recipe.componentsAdded">
-        
+   <table cellspacing="10" cellpadding="20">
+       <caption>טבלת מצרכים</caption>
+       <tr ng-repeat="component in recipe.componentsAdded">
+           <td>{{component.component}}</td>
+           <td>{{component.amount}}</td>
+           <td><button data-ng-click="deleteComponent($index)">delete</button></td>
+
+       </tr>
+   </table>
+
+   <a href="#/Add_Recipe_Part2">הבא</a>
+
+
+
 
 </div>
-
+</div>
+    </div>
