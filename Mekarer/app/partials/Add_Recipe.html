@@ -1,17 +1,42 @@
-<div ng-controller="DropdownCtrl">
-    <span>זמן הכנה</span>
-    <!-- Single button -->
-    <div class="btn-group" dropdown is-open="status.isopen">
-      <button type="button" class="btn btn-primary dropdown-toggle" ng-disabled="disabled">
-        Button dropdown <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu" role="menu">
-        <li><a href="#">Action</a></li>
-        <li><a href="#">Another action</a></li>
-        <li><a href="#">Something else here</a></li>
-        <li class="divider"></li>
-        <li><a href="#">Separated link</a></li>
-      </ul>
-    </div>
+
+<div  dir="rtl" ng-controller="AddRecipe" align="center">
+   <div>
+       <h1>הוסף מתכון</h1>
+   </div>
+    <br><br>
+   <div>
+       <span>שם מתכון:</span>
+       <input ng-model = 'recipe.name'>
+   </div>
+   <div>
+       <span>השם שלי:</span>
+       <input ng-model = 'recipe.owner'>
+   </div>
+    <br>
+   <div>
+       <span>מצרכים</span>
+   </div>
+    <br>
+   <div >
+       <span>שם מצרך:</span>
+       <input ng-model = 'recipe.component'>
+
+   </div>
+   <div>
+       <span>כמות:</span>
+       <input ng-model = 'recipe.amount'>
+   </div>
+
+   <button type="button" align="center" class="btn btn-primary" ng-model="components" ng-click='addOneRecipe()' btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+    add recipe
+   </button>
+
+    <button type="button" align="center" class="btn btn-primary" ng-model="singleModel" ng-click='printConsole()' btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+       console
+    </button>
+
+    <div ng-repeat="recipe.componentsAdded">
+        
+
 </div>
 
