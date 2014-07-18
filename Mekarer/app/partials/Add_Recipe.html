@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div ng-controller="DropdownCtrl">
     <span ng-model="sholi">זמן הכנה</span>
     <!-- Single button -->
@@ -11,6 +12,61 @@
         <li><a href="#">Something else here</a></li>
         <li><a href="#">Separated link</a></li>
       </ul>
+=======
+
+<div  dir="rtl" ng-controller="AddRecipe" align="center">
+   <div>
+       <h1>הוסף מתכון</h1>
+   </div>
+    <br><br>
+   <div>
+       <span>שם מתכון:</span>
+       <input ng-model = 'recipe.name'>
+   </div>
+   <div>
+       <span>השם שלי:</span>
+       <input ng-model ='recipe.owner'>
+   </div>
+    <br>
+   <div>
+       <span>מצרכים</span>
+   </div>
+    <br>
+   <div >
+       <span>שם מצרך:</span>
+       <input ng-model = 'recipe.component'>
+
+   </div>
+   <div>
+       <span>כמות:</span>
+       <input ng-model = 'recipe.amount'>
+   </div>
+
+   <button type="button" align="center" class="btn btn-primary" ng-model="components" ng-click='addOneRecipe()' btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+    add recipe
+   </button>
+
+    <button type="button" align="center" class="btn btn-primary" ng-model="singleModel" ng-click='printConsole()' btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+       console
+    </button>
+    <br>
+    <br>
+
+   <table cellspacing="10" cellpadding="20">
+       <caption>טבלת מצרכים</caption>
+       <tr ng-repeat="component in recipe.componentsAdded">
+           <td>{{component.component}}</td>
+           <td>{{component.amount}}</td>
+           <td><button data-ng-click="deleteComponent($index)">delete</button></td>
+
+       </tr>
+   </table>
+
+   <a href="#/Add_Recipe_Part2">הבא</a>
+
+>>>>>>> 85a16cf51c2a67545a495349f48b0c1a466fcaa2
     </div>
+
+
 </div>
 
