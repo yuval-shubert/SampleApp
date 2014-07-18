@@ -30,7 +30,7 @@ angular.module('myApp.controllers', []).
                 transformRequest: angular.identity
             }).success('success' ).error('error!');
             */
-            
+
         };
 
         $scope.deleteComponent = function(index) {
