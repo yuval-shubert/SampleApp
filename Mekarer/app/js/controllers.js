@@ -55,35 +55,4 @@ angular.module('myApp.controllers', []).
   }])
   .controller('MyCtrl3', [function() {
 
-  }])
-<<<<<<< HEAD
-  .controller('DropdownCtrl',['$scope',function($scope) {
- $scope.status = {
-=======
-  .controller('MyCtrl4', [function() {
-
-  }])
-
-  .controller('DropdownCtrl',[function DropdownCtrl($scope) {
-  $scope.items = [
-    'The first choice!',
-    'And another choice for you.',
-    'but wait! A third!'
-  ];
-
-  $scope.status = {
->>>>>>> 85a16cf51c2a67545a495349f48b0c1a466fcaa2
-    isopen: false
-  };
-  $scope.toggled = function(open) {
-    console.log('Dropdown is now: ', open);
-  };
-
-  $scope.toggleDropdown = function($event) {
-    $event.preventDefault();
-    $event.stopPropagation();
-    $scope.status.isopen = !$scope.status.isopen;
-    console.log("test1");
-  };
-  $scope.disabled=false;
-}]);
+  }]);
