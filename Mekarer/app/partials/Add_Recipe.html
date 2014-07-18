@@ -10,7 +10,7 @@
    </div>
    <div>
        <span>השם שלי:</span>
-       <input ng-model = 'recipe.owner'>
+       <input ng-model ='recipe.owner'>
    </div>
     <br>
    <div>
@@ -35,8 +35,22 @@
        console
     </button>
 
-    <div ng-repeat="recipe.componentsAdded">
-        
+   <table cellspacing="10" cellpadding="20" border="3">
+       <tr >
+           <td width="50">רכיב</td>
+           <td width="50">כמות</td>
+       </tr>
+       <tr ng-repeat="component in recipe.componentsAdded">
+           <td>{{component.component}}</td>
+           <td>{{component.amount}}</td>
+           <td><button  ng-click="delete(component)"><i class="icon-minus-sign"></i></button></td>
+
+       </tr>
+   </table>
+
+
+    </div>
+
 
 </div>
 
