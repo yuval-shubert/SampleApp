@@ -12,20 +12,10 @@ angular.module('myApp.controllers', []).
   .controller('MyCtrl3', [function() {
 
   }])
-  .controller('MyCtrl4', [function() {
-
-  }])
-  .controller('DropdownCtrl',[function DropdownCtrl($scope) {
-  $scope.items = [
-    'The first choice!',
-    'And another choice for you.',
-    'but wait! A third!'
-  ];
-
-  $scope.status = {
+  .controller('DropdownCtrl',['$scope',function($scope) {
+ $scope.status = {
     isopen: false
   };
-
   $scope.toggled = function(open) {
     console.log('Dropdown is now: ', open);
   };
@@ -34,5 +24,7 @@ angular.module('myApp.controllers', []).
     $event.preventDefault();
     $event.stopPropagation();
     $scope.status.isopen = !$scope.status.isopen;
+    console.log("test1");
   };
+  $scope.disabled=false;
 }]);
