@@ -15,5 +15,6 @@ config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/Favorite_Recipe', {templateUrl: 'partials/Favorite_Recipe.html', controller: 'MyCtrl2'});
   $routeProvider.when('/My_Recipe', {templateUrl: 'partials/My_Recipe.html', controller: 'MyCtrl3'});
   $routeProvider.when('/Add_Recipe', {templateUrl: 'partials/Add_Recipe.html', controller: 'AddRecipe'});
+  $routeProvider.when('/Add_Recipe_Part2', {templateUrl: 'partials/Add_Recipe_Part2.html', controller: 'AddRecipe'});
   $routeProvider.otherwise({redirectTo: '/Search_Recipe.html'});
 }]);
