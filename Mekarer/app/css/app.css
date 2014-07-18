@@ -28,3 +28,7 @@
   content: "";
   padding: 0;
 }
+
+.tablePadding{
+    padding-left: 10px;
+}

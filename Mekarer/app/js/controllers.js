@@ -27,6 +27,32 @@ angular.module('myApp.controllers', []).
             console.log(this.recipe.componentsAdded);
         };
 
+        $scope.mytime = new Date();
+
+        $scope.hstep = 1;
+        $scope.mstep = 15;
+
+        $scope.options = {
+            hstep: [1, 2, 3],
+            mstep: [1, 5, 10, 15, 25, 30]
+        };
+
+        $scope.ismeridian = false;
+
+        $scope.update = function() {
+            var d = new Date();
+            d.setHours( 14 );
+            d.setMinutes( 0 );
+            $scope.mytime = d;
+        };
+
+        $scope.changed = function () {
+            console.log('Time changed to: ' + $scope.mytime);
+        };
+
+        $scope.clear = function() {
+            $scope.mytime = null;
+        };
     }])
 
   .controller('MyCtrl2', [function() {
@@ -37,26 +63,4 @@ angular.module('myApp.controllers', []).
   }])
   .controller('MyCtrl4', [function() {
 
-  }])
-
-  .controller('DropdownCtrl',[function DropdownCtrl($scope) {
-  $scope.items = [
-    'The first choice!',
-    'And another choice for you.',
-    'but wait! A third!'
-  ];
-
-  $scope.status = {
-    isopen: false
-  };
-
-  $scope.toggled = function(open) {
-    console.log('Dropdown is now: ', open);
-  };
-
-  $scope.toggleDropdown = function($event) {
-    $event.preventDefault();
-    $event.stopPropagation();
-    $scope.status.isopen = !$scope.status.isopen;
-  };
-}]);
+  }]);
