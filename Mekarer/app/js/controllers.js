@@ -99,4 +99,22 @@ angular.module('myApp.controllers', []).
   }])
   .controller('MyCtrl3', [function() {
 
-  }]);
+  }])
+  .controller('SearchRecipeCtrl', ['$scope','$http',function($scope,$http) {
+        var ingredients = [];
+
+        $scope.AddIngredient = function(){
+            ingredients.push($scope.ingredient);
+            $scope.ingredient='';
+        }
+
+        $scope.getMatchedRecepies = function(){
+            $http.post('http://10.0.0.8:8080/search_recipe', {
+                ingredients : ingredients
+            }).success(function(data, status, headers, config) {
+                $scope.result=JSON.stringify(data);
+                console.log(data);
+                alert("Success");
+
+            }).error(function(){alert("yuval sucks")})
+   }}]);
