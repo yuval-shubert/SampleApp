@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 <div ng-controller="AddRecipe">
+=======
+<div ng-controller="AddRecipe" align="center">
+>>>>>>> 9e096b637a2d695a32a2076979b06b20515a55af
     <span ng-model="sholi">זמן הכנה</span>
     <!-- Single button -->
     <div class="btn-group" dropdown is-open="status.isopen">
@@ -50,13 +54,12 @@
     <br>
     <br>
 
-   <table cellspacing="10" cellpadding="20">
-       <caption>טבלת מצרכים</caption>
-       <tr ng-repeat="component in recipe.componentsAdded">
-           <td>{{component.component}}</td>
-           <td>{{component.amount}}</td>
-           <td><button data-ng-click="deleteComponent($index)">delete</button></td>
-
+   <table class="tablePadding">
+       <caption class="tablePadding"><h3> טבלת מצרכים</h3></caption>
+       <tr class="tablePadding" ng-repeat="component in recipe.componentsAdded">
+           <td class="tablePadding">{{component.component}}</td>
+           <td class="tablePadding">{{component.amount}}</td>
+           <td class="tablePadding"><button data-ng-click="deleteComponent($index)">delete</button></td>
        </tr>
    </table>
 
@@ -64,6 +67,10 @@
     <button ng-click="postRecipe()">postMe</button>
 
 
+
+    <button type="button" align="center" class="btn btn-primary" ng-model="singleModel" ng-click='sendRecipe()' btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+        send recipe
+    </button>
 
 
 </div>
