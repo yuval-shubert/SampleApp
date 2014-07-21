@@ -1,6 +1,7 @@
 var ip_addr = '0.0.0.0';
 var port    =  '8080';
 var restify = require('restify');
+var recipeCollection = require('./recipeCollection');
 
 var server = restify.createServer({
     name : "myapp"
@@ -19,7 +20,6 @@ server.get({path : PATH , version : '0.0.1'} , getRecipe);
 server.post({path : PATH , version: '0.0.1'} ,postNewRecipe);
 
 function getRecipe(req, res , next){
-
     var recipe = {
         name : '',
         owner : '',
@@ -34,7 +34,6 @@ function getRecipe(req, res , next){
     recipe = req.recipe;
     console.log(recipe.name);
     res.send(200);
-
     /*res.setHeader('Access-Control-Allow-Origin','*');
      if(success){
      res.send(200 , success);
@@ -60,9 +59,15 @@ function postNewRecipe(req, res , next){
     console.log(req.params);
     recipe = req.params.recipe;
     console.log(recipe.name);
-    res.send(200);
     res.setHeader('Access-Control-Allow-Origin','*');
     res.send(200);
+    console.log('flag a');
+    recipeCollection.addrecipe(recipe);
+    console.log('flag b');
+
+
+    recipeCollection.findAll();
+
 
 }
 
