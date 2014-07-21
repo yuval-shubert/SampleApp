@@ -23,12 +23,12 @@ exports.testRecipe = function(){
     console.log('hello');
 }
 
-exports.findById = function(req, res) {
-    var id = req.params.id;
-    console.log('Retrieving recipe: ' + id);
+exports.findRecipe = function(req, res) {
+
     db.collection('recipes', function(err, collection) {
-        collection.findOne({'_id':new BSON.ObjectID(id)}, function(err, item) {
-            res.send(item);
+        collection.find().toArray(function(err, items) {
+            res.send(items);
+            console.log(items);
         });
     });
 };
