@@ -6,7 +6,7 @@ angular.module('myApp.controllers', []).
   controller('MyCtrl1', [function() {
 
   }])
-    .controller('AddRecipe',['$scope',function($scope) {
+    .controller('AddRecipe',['$scope','$http',function($scope,$http) {
         $scope.recipe = {
             name : '',
             owner : '',
@@ -74,6 +74,14 @@ angular.module('myApp.controllers', []).
         $scope.clear = function() {
             $scope.mytime = null;
         };
+
+        $scope.postRecipe = function(){
+            $http.post('http://10.0.0.8:8080/recipe', {
+                recipe : this.recipe
+            }).success(function(data, status, headers, config) {
+                alert("Success");
+            }).error(function(){alert("yuval sucks")});
+        }
     }])
 
   .controller('MyCtrl2', [function() {

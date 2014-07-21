@@ -2,7 +2,7 @@
 <div  dir="rtl" ng-controller="AddRecipe" align="center">
     <div>
         <table class="tablePadding">
-            <caption><h3>שלב ב'</h3></caption>
+            <caption><h3>שלב ג'</h3></caption>
             <tr>
                 <th class="tablePadding"><label>זמן הכנה:</label></th>
                 <th><timepicker ng-model="timePreparation" ng-change="changed()" show-meridian="ismeridian"></timepicker></th>
@@ -16,6 +16,28 @@
                 <th><timepicker ng-model="timePreparation" ng-change="changed()" show-meridian="ismeridian"></timepicker></th>
             </tr>
         </table>
+
+      <div class="input-group">
+          <label>כשר</label>
+            <input type="checkbox">
+          <br>
+          <label>צמחוני</label>
+          <input type="checkbox">
+           <br>
+          <label>טבעוני</label>
+          <input type="checkbox">
+          <br>
+          <label>קינוח</label>
+          <input type="checkbox">
+          <br>
+          <label>דיאטטי</label>
+          <input type="checkbox">
+          <br>
+          <label>בשרי</label>
+          <input type="checkbox">
+          <br>
+          <ng-submit>העלה מתכון</ng-submit>
+      </div>
 
 
    </div>
