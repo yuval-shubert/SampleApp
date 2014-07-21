@@ -85,7 +85,6 @@ angular.module('myApp.controllers', []).
             $scope.mytime = null;
         };
 
-<<<<<<< HEAD
         $scope.postRecipe = function(){
             $http.post('http://10.0.0.8:8080/recipe', {
                 recipe : this.recipe
@@ -93,8 +92,6 @@ angular.module('myApp.controllers', []).
                 alert("Success");
             }).error(function(){alert("yuval sucks")});
         }
-=======
->>>>>>> 9e096b637a2d695a32a2076979b06b20515a55af
     }])
 
   .controller('MyCtrl2', [function() {
