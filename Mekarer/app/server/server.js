@@ -15,9 +15,24 @@ server.use(restify.queryParser());
 server.use(restify.bodyParser());
 server.use(restify.CORS());
 
-var PATH = '/recipe'
+var PATH = '/recipe';
+var PATH_SEARCH = '/search_recipe';
+
 server.get({path : PATH , version : '0.0.1'} , getRecipe);
 server.post({path : PATH , version: '0.0.1'} ,postNewRecipe);
+server.post({path : PATH_SEARCH , version: '0.0.1'} ,searchRecipe);
+
+function searchRecipe(req, res, next){
+    console.log('get search for recipe request.');
+    //var components = req.params.ingredients;
+    recipeCollection.findRecipe(req,res);
+    console.log('send to client recipes');
+
+
+
+
+}
+
 
 function getRecipe(req, res , next){
     var recipe = {
@@ -33,7 +48,6 @@ function getRecipe(req, res , next){
     console.log('get GET event');
     recipe = req.recipe;
     console.log(recipe.name);
-    res.send(200);
     /*res.setHeader('Access-Control-Allow-Origin','*');
      if(success){
      res.send(200 , success);
