@@ -30,7 +30,6 @@ angular.module('myApp.controllers', []).
                 transformRequest: angular.identity
             }).success('success' ).error('error!');
             */
-
         };
 
         $scope.deleteComponent = function(index) {
@@ -38,17 +37,28 @@ angular.module('myApp.controllers', []).
         };
 
         $scope.addOneRecipe = function(){
+            if (this.recipe.component == '' || this.recipe.amount == ''){
+                return;
+            }
+
               this.recipe.componentsAdded.push({
                   component: this.recipe.component,
                   amount: this.recipe.amount
               });
+            this.recipe.component = '';
+            this.recipe.amount = '';
+        };
+
+        $scope.sendRecipe = function(){
+            alert('sd');
+            $http.post('http://10.0.0.8:8080', {}).success(alert('success'));
         };
 
         $scope.printConsole = function(){
             console.log(this.recipe.componentsAdded);
         };
 
-        $scope.mytime = new Date();
+      $scope.mytime = new Date();
 
         $scope.hstep = 1;
         $scope.mstep = 15;
@@ -74,6 +84,7 @@ angular.module('myApp.controllers', []).
         $scope.clear = function() {
             $scope.mytime = null;
         };
+
     }])
 
   .controller('MyCtrl2', [function() {
