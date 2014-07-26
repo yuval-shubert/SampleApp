@@ -7,7 +7,7 @@ angular.module('myApp.controllers', []).
   controller('MyCtrl1', [function() {
 
   }])
-    .controller('AddRecipe',['$scope','$http',function($scope,$http) {
+    .controller('AddRecipe',['$scope','$http','addRecipeProperty',function($scope,$http,addRecipeProperty) {
         $scope.recipe = {
             name : '',
             owner : '',
@@ -17,7 +17,6 @@ angular.module('myApp.controllers', []).
             description: 'insert here your description',
             pictures: []
         };
-
 
 
         $scope.uploadFile = function(files) {
@@ -38,6 +37,7 @@ angular.module('myApp.controllers', []).
         };
 
         $scope.addOneRecipe = function(){
+
             if (this.recipe.component == '' || this.recipe.amount == ''){
                 return;
             }
@@ -54,6 +54,13 @@ angular.module('myApp.controllers', []).
             alert('sd');
             $http.post(server_ip+':8080', {}).success(alert('success'));
         };
+        $scope.loadRecipe = function(){
+            this.recipe = addRecipeProperty.getRecipe();
+        }
+
+        $scope.nextPage = function(){
+            addRecipeProperty.setRecipe(this.recipe);
+        }
 
         $scope.printConsole = function(){
             console.log(this.recipe.componentsAdded);

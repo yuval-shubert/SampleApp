@@ -32,4 +32,28 @@ config(['$routeProvider', function($routeProvider) {
                 RecipeSearchResult = value;
             }
         }
-    });
+    }
+        .service('addRecipeProperty',function(){
+            var recipe = {
+                name : '',
+                owner : '',
+                component :'',
+                amount : '',
+                componentsAdded : [],
+                description: 'insert here your description',
+                pictures: []
+            }
+
+            return {
+                getRecipe: function () {
+                    return this.recipe;
+                },
+                setRecipe: function (value) {
+                    this.recipe = value;
+                }
+            }
+
+        })
+);
+
+
