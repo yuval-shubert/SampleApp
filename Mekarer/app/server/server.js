@@ -25,8 +25,10 @@ server.post({path : PATH_SEARCH , version: '0.0.1'} ,searchRecipe);
 function searchRecipe(req, res, next){
     console.log('get search for recipe request.');
     console.log( req.params.ingredients);
+
+
+
     recipeCollection.findRecipe(req,res);
-    console.log('send to client recipes');
 
 
 

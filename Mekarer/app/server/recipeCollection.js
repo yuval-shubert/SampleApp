@@ -24,11 +24,20 @@ exports.testRecipe = function(){
 }
 
 exports.findRecipe = function(req, res) {
-    var ingredients = req.param.ingredients;
+    var query = '{"components.component": { $in: [';
+    var ingredients = req.params.ingredients;
+    for(var i = 0; i < ingredients.length; i++) {
+        if (i != 0 )
+            query += ','
+        query += "'" + ingredients[i].component +"'";
+    }
+
+    query += ' ] } }'
+    console.log('query for find:' +query)
     db.collection('recipes', function(err, collection) {
-        collection.find().toArray(function(err, items) {
-            res.send(201);
-            console.log(items);
+        collection.find(this.query).toArray(function(err, items) {
+            res.send(items);
+            console.log('items retrieved from DB: ' + JSON.stringify(items));
         });
     });
 };

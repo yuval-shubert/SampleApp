@@ -11,6 +11,7 @@ angular.module('myApp', [
   'ui.bootstrap',
 ]).
 config(['$routeProvider', function($routeProvider) {
+  $routeProvider.when('/Facebook_Login', {templateUrl: 'partials/Facebook_Login.html', controller: 'FacebookLoginCtrl'});
   $routeProvider.when('/Search_Recipe', {templateUrl: 'partials/Search_Recipe.html', controller: 'SearchRecipeCtrl'});
   $routeProvider.when('/Favorite_Recipe', {templateUrl: 'partials/Favorite_Recipe.html', controller: 'MyCtrl2'});
   $routeProvider.when('/Add_Recipe', {templateUrl: 'partials/Add_Recipe.html', controller: 'AddRecipe'});
@@ -26,34 +27,32 @@ config(['$routeProvider', function($routeProvider) {
 
         return {
             getProperty: function () {
-                return RecipeSearchResult;
-            },
+                                     return RecipeSearchResult;
+                        },
             setProperty: function (value) {
                 RecipeSearchResult = value;
             }
         }
-    }
+    })
         .service('addRecipeProperty',function(){
-            var recipe = {
+            var recipeProperty = {
                 name : '',
                 owner : '',
-                component :'',
-                amount : '',
-                componentsAdded : [],
+                components : [],
                 description: 'insert here your description',
                 pictures: []
-            }
+            };
 
             return {
                 getRecipe: function () {
-                    return this.recipe;
+                    return recipeProperty;
                 },
                 setRecipe: function (value) {
-                    this.recipe = value;
+                    recipeProperty = value;
                 }
             }
 
-        })
-);
+        });
+
 
 

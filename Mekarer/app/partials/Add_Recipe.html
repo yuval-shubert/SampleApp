@@ -1,4 +1,4 @@
-<div ng-controller="AddRecipe" align="center">
+<div ng-controller="AddRecipe" data-ng-init="loadRecipe()" align="center">
     <span ng-model="sholi">זמן הכנה</span>
     <!-- Single button -->
     <div class="btn-group" dropdown is-open="status.isopen">
@@ -32,12 +32,12 @@
     <br>
    <div >
        <span>שם מצרך:</span>
-       <input ng-model = 'recipe.component'>
+       <input ng-model = 'component'>
 
    </div>
    <div>
        <span>כמות:</span>
-       <input ng-model = 'recipe.amount'>
+       <input ng-model = 'amount'>
    </div>
 
    <button type="button" align="center" class="btn btn-primary" ng-model="components" ng-click='addOneRecipe()' btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
@@ -52,7 +52,7 @@
 
    <table class="tablePadding">
        <caption class="tablePadding"><h3> טבלת מצרכים</h3></caption>
-       <tr class="tablePadding" ng-repeat="component in recipe.componentsAdded">
+       <tr class="tablePadding" ng-repeat="component in recipe.components">
            <td class="tablePadding">{{component.component}}</td>
            <td class="tablePadding">{{component.amount}}</td>
            <td class="tablePadding"><button data-ng-click="deleteComponent($index)">delete</button></td>

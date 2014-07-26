@@ -11,12 +11,14 @@ angular.module('myApp.controllers', []).
         $scope.recipe = {
             name : '',
             owner : '',
-            component :'',
-            amount : '',
-            componentsAdded : [],
+            components : [],
             description: 'insert here your description',
             pictures: []
         };
+
+
+        $scope.component ='';
+        $scope.amount  = '';
 
 
         $scope.uploadFile = function(files) {
@@ -33,41 +35,56 @@ angular.module('myApp.controllers', []).
         };
 
         $scope.deleteComponent = function(index) {
-            $scope.recipe.componentsAdded.splice(index,1);
+            $scope.recipe.components.splice(index,1);
         };
+
+
 
         $scope.addOneRecipe = function(){
 
-            if (this.recipe.component == '' || this.recipe.amount == ''){
+            if (this.component == '' || this.amount == ''){
                 return;
             }
 
-              this.recipe.componentsAdded.push({
-                  component: this.recipe.component,
-                  amount: this.recipe.amount
+              this.recipe.components.push({
+                  component: this.component,
+                  amount: this.amount
               });
-            this.recipe.component = '';
-            this.recipe.amount = '';
+
+            this.component = '';
+            this.amount = '';
         };
 
         $scope.sendRecipe = function(){
-            alert('sd');
             $http.post(server_ip+':8080', {}).success(alert('success'));
         };
+
+        $scope.$watch('$routeUpdate', function(){
+            console.log(JSON.stringify($scope.recipe));
+            addRecipeProperty.setRecipe($scope.recipe);
+            console.log('property object ' + JSON.stringify(addRecipeProperty.getProperty));
+        });
+
+
         $scope.loadRecipe = function(){
+            alert('load recipe');
             this.recipe = addRecipeProperty.getRecipe();
-        }
+            console.log('load recipe ' + JSON.stringify(this.recipe));
+        };
+
+        $scope.initRecipe = function(){
+           addRecipeProperty.setRecipe(this.recipe) ;
+        };
 
         $scope.nextPage = function(){
             addRecipeProperty.setRecipe(this.recipe);
-        }
-
-        $scope.printConsole = function(){
-            console.log(this.recipe.componentsAdded);
         };
 
-      $scope.mytime = new Date();
+        $scope.printConsole = function(){
+            console.log(JSON.stringify(this.recipe));
+        };
 
+        $scope.mytime = new Date();
         $scope.hstep = 1;
         $scope.mstep = 15;
 
@@ -98,6 +115,7 @@ angular.module('myApp.controllers', []).
                 recipe : this.recipe
             }).success(function(data, status, headers, config) {
                 alert("Success");
+                this.initRecipe();
             }).error(function(){alert("yuval sucks")});
         }
     }])
@@ -108,37 +126,79 @@ angular.module('myApp.controllers', []).
   .controller('MyCtrl3', [function() {
 
   }])
+
+    .controller('FacebookLoginCtrl', ['$scope','$http',function($scope,$http,$location) {
+        $scope.startUp = function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=615056888586794&version=v2.0";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk')
+
+        // This is called with the results from from FB.getLoginStatus().
+        function statusChangeCallback(response) {
+            console.log('statusChangeCallback');
+            console.log(response);
+            // The response object is returned with a status field that lets the
+            // app know the current login status of the person.
+            // Full docs on the response object can be found in the documentation
+            // for FB.getLoginStatus().
+            if (response.status === 'connected') {
+                // Logged into your app and Facebook.
+                testAPI();
+            } else if (response.status === 'not_authorized') {
+                // The person is logged into Facebook, but not your app.
+                document.getElementById('status').innerHTML = 'Please log ' +
+                    'into this app.';
+            } else {
+                // The person is not logged into Facebook, so we're not sure if
+                // they are logged into this app or not.
+                document.getElementById('status').innerHTML = 'Please log ' +
+                    'into Facebook.';
+            }
+        }
+
+        // This function is called when someone finishes with the Login
+        // Button.  See the onlogin handler attached to it in the sample
+        // code below.
+        $scope.checkLoginState = function checkLoginState() {
+            FB.getLoginStatus(function(response) {
+                statusChangeCallback(response);
+            });
+        }
+    }])
   .controller('SearchRecipeCtrl', ['$scope','$http','$location','sharedProperties',function($scope,$http,$location, sharedProperties ) {
         $scope.query = {
-            component : 'ab',
-            componentsAdded : []
+            components : []
         };
+
+        $scope.component = '';
 
 
         $scope.addOneRecipe = function(){
-            if (this.query.component == ''){
+            if (this.component == ''){
                 return;
             }
 
-            this.query.componentsAdded.push({
-                component: this.query.component
+            this.query.components.push({
+                component: this.component
             });
-            this.query.component = '';
+            this.component = '';
         };
         $scope.deleteComponent = function(index) {
-            $scope.query.componentsAdded.splice(index,1);
+            $scope.query.components.splice(index,1);
         };
 
         $scope.searchForRecipes = function(){
-            console.log('Components send'+ JSON.stringify(this.query.componentsAdded))
+            console.log('Components send'+ JSON.stringify(this.query.components))
             $http.post(server_ip + ':8080/search_recipe', {
-                ingredients : this.query.componentsAdded
+                ingredients : this.query.components
             }).success(function (data, status, headers, config) {
                 $scope.result = JSON.stringify(data);
                 sharedProperties.setProperty("5");
-                console.log(data);
+                console.log('retrieved from DB'+JSON.stringify(data));
                 $location.path("/Search_Result");
-
             }).error(function () {
                 alert("yuval sucks");
             })
@@ -146,8 +206,8 @@ angular.module('myApp.controllers', []).
 
             }])
     .controller('RecipeSearchResultCtrl', ['$scope','$http','sharedProperties',function($scope,$http,$location, sharedProperties ) {
-        $scope.test1= sharedProperties.getProperty();
-           console.log(sharedProperties.getProperty());
+          /* $scope.test1 = sharedProperties.getProperty();
+           console.log(sharedProperties.getProperty());*/
            console.log("hey");
 
 
