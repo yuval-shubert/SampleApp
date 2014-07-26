@@ -51,7 +51,7 @@ angular.module('myApp.controllers', []).
 
         $scope.sendRecipe = function(){
             alert('sd');
-            $http.post('http://10.0.0.8:8080', {}).success(alert('success'));
+            $http.post('http://10.0.0.4:8080', {}).success(alert('success'));
         };
 
         $scope.printConsole = function(){
@@ -86,7 +86,7 @@ angular.module('myApp.controllers', []).
         };
 
         $scope.postRecipe = function(){
-            $http.post('http://10.0.0.8:8080/recipe', {
+            $http.post('http://10.0.0.4:8080/recipe', {
                 recipe : this.recipe
             }).success(function(data, status, headers, config) {
                 alert("Success");
@@ -100,21 +100,28 @@ angular.module('myApp.controllers', []).
   .controller('MyCtrl3', [function() {
 
   }])
-  .controller('SearchRecipeCtrl', ['$scope','$http',function($scope,$http) {
+  .controller('SearchRecipeCtrl', ['$scope','$http','$location','sharedProperties',function($scope,$http,$location, sharedProperties ) {
         var ingredients = [];
-
+        $scope.test1="2";
         $scope.AddIngredient = function(){
             ingredients.push($scope.ingredient);
             $scope.ingredient='';
         }
 
         $scope.getMatchedRecepies = function(){
-            $http.post('http://10.0.0.8:8080/search_recipe', {
+            $http.post('http://10.0.0.4:8080/search_recipe', {
                 ingredients : ingredients
             }).success(function(data, status, headers, config) {
                 $scope.result=JSON.stringify(data);
+                sharedProperties.setProperty("5");
                 console.log(data);
-                alert("Success");
+                $location.path("/Search_Result");
 
             }).error(function(){alert("yuval sucks")})
-   }}]);
+   }}])
+.controller('RecipeSearchResultCtrl', ['$scope','$http','sharedProperties',function($scope,$http,$location, sharedProperties ) {
+    $scope.test1= sharedProperties.getProperty();
+        console.log(sharedProperties.getProperty());
+        console.log("hey");
+    }]);
+
