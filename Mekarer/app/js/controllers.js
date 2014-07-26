@@ -101,7 +101,7 @@ angular.module('myApp.controllers', []).
   .controller('MyCtrl3', [function() {
 
   }])
-  .controller('SearchRecipeCtrl', ['$scope','$http',function($scope,$http) {
+  .controller('SearchRecipeCtrl', ['$scope','$http','$location','sharedProperties',function($scope,$http,$location, sharedProperties ) {
         $scope.query = {
             component : 'ab',
             componentsAdded : []
@@ -126,15 +126,22 @@ angular.module('myApp.controllers', []).
             console.log('Components send'+ JSON.stringify(this.query.componentsAdded))
             $http.post(server_ip + ':8080/search_recipe', {
                 ingredients : this.query.componentsAdded
-            }).success(function(data, status, headers, config) {
-                $scope.result=JSON.stringify(data);
+            }).success(function (data, status, headers, config) {
+                $scope.result = JSON.stringify(data);
+                sharedProperties.setProperty("5");
                 console.log(data);
-                alert("Success");
-            }).error(function(){
+                $location.path("/Search_Result");
+
+            }).error(function () {
                 alert("yuval sucks");
             })
         };
 
+            }])
+    .controller('RecipeSearchResultCtrl', ['$scope','$http','sharedProperties',function($scope,$http,$location, sharedProperties ) {
+        $scope.test1= sharedProperties.getProperty();
+           console.log(sharedProperties.getProperty());
+           console.log("hey");
 
 
     }]);
