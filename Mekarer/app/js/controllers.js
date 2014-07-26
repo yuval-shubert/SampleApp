@@ -1,5 +1,6 @@
 'use strict';
 
+var server_ip = 'http://10.0.0.4';
 /* Controllers */
 
 angular.module('myApp.controllers', []).
@@ -51,7 +52,7 @@ angular.module('myApp.controllers', []).
 
         $scope.sendRecipe = function(){
             alert('sd');
-            $http.post('http://10.0.0.8:8080', {}).success(alert('success'));
+            $http.post(server_ip+':8080', {}).success(alert('success'));
         };
 
         $scope.printConsole = function(){
@@ -86,7 +87,7 @@ angular.module('myApp.controllers', []).
         };
 
         $scope.postRecipe = function(){
-            $http.post('http://10.0.0.8:8080/recipe', {
+            $http.post(server_ip + ':8080/recipe', {
                 recipe : this.recipe
             }).success(function(data, status, headers, config) {
                 alert("Success");
@@ -113,7 +114,7 @@ angular.module('myApp.controllers', []).
             }
 
             this.query.componentsAdded.push({
-                component: this.query.component,
+                component: this.query.component
             });
             this.query.component = '';
         };
@@ -122,14 +123,13 @@ angular.module('myApp.controllers', []).
         };
 
         $scope.searchForRecipes = function(){
-            alert('searchForRecipes');
-            $http.post('http://10.0.0.4:8080/search_recipe', {
+            console.log('Components send'+ JSON.stringify(this.query.componentsAdded))
+            $http.post(server_ip + ':8080/search_recipe', {
                 ingredients : this.query.componentsAdded
             }).success(function(data, status, headers, config) {
                 $scope.result=JSON.stringify(data);
                 console.log(data);
                 alert("Success");
-
             }).error(function(){
                 alert("yuval sucks");
             })

@@ -24,10 +24,10 @@ exports.testRecipe = function(){
 }
 
 exports.findRecipe = function(req, res) {
-
+    var ingredients = req.param.ingredients;
     db.collection('recipes', function(err, collection) {
         collection.find().toArray(function(err, items) {
-            res.send(items);
+            res.send(201);
             console.log(items);
         });
     });
