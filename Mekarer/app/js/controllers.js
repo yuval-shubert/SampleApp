@@ -101,27 +101,49 @@ angular.module('myApp.controllers', []).
 
   }])
   .controller('SearchRecipeCtrl', ['$scope','$http','$location','sharedProperties',function($scope,$http,$location, sharedProperties ) {
-        var ingredients = [];
-        $scope.test1="2";
-        $scope.AddIngredient = function(){
-            ingredients.push($scope.ingredient);
-            $scope.ingredient='';
-        }
+        $scope.query = {
+            component : 'ab',
+            componentsAdded : []
+        };
 
-        $scope.getMatchedRecepies = function(){
+
+        $scope.addOneRecipe = function(){
+            if (this.query.component == ''){
+                return;
+            }
+
+            this.query.componentsAdded.push({
+                component: this.query.component,
+            });
+            this.query.component = '';
+        };
+        $scope.deleteComponent = function(index) {
+            $scope.query.componentsAdded.splice(index,1);
+        };
+
+        $scope.searchForRecipes = function() {
+            alert('searchForRecipes');
             $http.post('http://10.0.0.4:8080/search_recipe', {
-                ingredients : ingredients
-            }).success(function(data, status, headers, config) {
-                $scope.result=JSON.stringify(data);
+                ingredients: this.query.componentsAdded
+            }).success(function (data, status, headers, config) {
+                $scope.result = JSON.stringify(data);
                 sharedProperties.setProperty("5");
                 console.log(data);
                 $location.path("/Search_Result");
 
-            }).error(function(){alert("yuval sucks")})
-   }}])
-.controller('RecipeSearchResultCtrl', ['$scope','$http','sharedProperties',function($scope,$http,$location, sharedProperties ) {
-    $scope.test1= sharedProperties.getProperty();
-        console.log(sharedProperties.getProperty());
-        console.log("hey");
-    }]);
+            }).error(function () {
+                alert("yuval sucks");
+            })};
 
+        }])
+    .controller('RecipeSearchResultCtrl', ['$scope','$http','sharedProperties',function($scope,$http,$location, sharedProperties ) {
+        $scope.test1= sharedProperties.getProperty();
+           console.log(sharedProperties.getProperty());
+           console.log("hey");
+
+
+
+
+
+
+    }]);

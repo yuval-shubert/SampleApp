@@ -1,6 +1,42 @@
-<div>
-    <input type="text" ng-model="ingredient">
-    <button ng-click="AddIngredient()">add</button>
-    <button ng-click="getMatchedRecepies()">Search</button>
-    <textarea ng-model="result"></textarea>
-</div>
+
+        <div  dir="rtl" ng-controller="SearchRecipeCtrl" align="center">
+            <div>
+                <h1>חפש מתכון:</h1>
+            </div>
+            <br>
+                <span>מצרכים</span>
+            </div>
+            <br>
+                <span>שם מצרך:</span>
+                <input ng-model = 'query.component'>
+
+
+
+
+            <button type="button" align="center" class="btn btn-primary" ng-model="components" ng-click='addOneRecipe()' btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+                add recipe
+            </button>
+
+
+            <br>
+            <br>
+
+            <table class="tablePadding">
+                <caption class="tablePadding"><h3> טבלת מצרכים</h3></caption>
+                <tr class="tablePadding" ng-repeat="component in query.componentsAdded">
+                    <td class="tablePadding">{{component.component}}</td>
+                    <td class="tablePadding"><button data-ng-click="deleteComponent($index)">delete</button></td>
+                </tr>
+            </table>
+
+
+
+
+
+            <button type="button" align="center" class="btn btn-primary" ng-model="singleModel" ng-click=searchForRecipes() btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+                search recipe
+            </button>
+
+
+        </div>
+
