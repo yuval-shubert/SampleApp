@@ -101,20 +101,40 @@ angular.module('myApp.controllers', []).
 
   }])
   .controller('SearchRecipeCtrl', ['$scope','$http',function($scope,$http) {
-        var ingredients = [];
+        $scope.query = {
+            component : 'ab',
+            componentsAdded : []
+        };
 
-        $scope.AddIngredient = function(){
-            ingredients.push($scope.ingredient);
-            $scope.ingredient='';
-        }
 
-        $scope.getMatchedRecepies = function(){
-            $http.post('http://10.0.0.8:8080/search_recipe', {
-                ingredients : ingredients
+        $scope.addOneRecipe = function(){
+            if (this.query.component == ''){
+                return;
+            }
+
+            this.query.componentsAdded.push({
+                component: this.query.component,
+            });
+            this.query.component = '';
+        };
+        $scope.deleteComponent = function(index) {
+            $scope.query.componentsAdded.splice(index,1);
+        };
+
+        $scope.searchForRecipes = function(){
+            alert('searchForRecipes');
+            $http.post('http://10.0.0.4:8080/search_recipe', {
+                ingredients : this.query.componentsAdded
             }).success(function(data, status, headers, config) {
                 $scope.result=JSON.stringify(data);
                 console.log(data);
                 alert("Success");
 
-            }).error(function(){alert("yuval sucks")})
-   }}]);
+            }).error(function(){
+                alert("yuval sucks");
+            })
+        };
+
+
+
+    }]);

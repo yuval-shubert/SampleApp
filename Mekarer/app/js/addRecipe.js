@@ -8,7 +8,6 @@ function AddRecipe(){
         component :'',
         amount : ''
     };
-
 }
 
 function addOneRecipe(){
