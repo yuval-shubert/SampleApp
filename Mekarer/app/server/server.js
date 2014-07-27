@@ -1,6 +1,6 @@
 var ip_addr = '0.0.0.0';
 var port    =  '8080';
-    var restify = require('restify');
+var restify = require('restify');
 var recipeCollection = require('./recipeCollection');
 
 var server = restify.createServer({
@@ -31,9 +31,7 @@ function searchRecipe(req, res, next){
         console.log('result - ' + JSON.stringify(result));
         addRanksToRecipes(result,ingredients);
         console.log('result  after add ranks- ' + JSON.stringify(result));
-
     });
-
 
 }
 

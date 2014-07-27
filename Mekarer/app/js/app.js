@@ -34,7 +34,7 @@ config(['$routeProvider', function($routeProvider) {
             }
         }
     })
-        .service('addRecipeProperty',function(){
+        .service('recipeService',function(){
             var recipeProperty = {
                 name : '',
                 owner : '',

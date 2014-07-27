@@ -1,19 +1,5 @@
-<div ng-controller="AddRecipe" data-ng-init="loadRecipe()" align="center">
-    <span ng-model="sholi">זמן הכנה</span>
-    <!-- Single button -->
-    <div class="btn-group" dropdown is-open="status.isopen">
-      <button type="button" class="btn btn-primary dropdown-toggle"  ng-disabled="disabled">
-        Button dropdown <span class="caret"  ></span>
-      </button>
-      <ul class="dropdown-menu" role="menu">
-        <li><a href="#"></a></li>
-        <li><a href="#">Another action</a></li>
-        <li><a href="#">Something else here</a></li>
-        <li><a href="#">Separated link</a></li>
-      </ul>
-
-<div  dir="rtl" ng-controller="AddRecipe" align="center">
-   <div>
+<div dir="rtl" ng-controller="AddRecipe" data-ng-init="loadRecipe()" align="center">
+      <div>
        <h1>הוסף מתכון</h1>
    </div>
     <br><br>
@@ -25,20 +11,20 @@
        <span>השם שלי:</span>
        <input ng-model ='recipe.owner'>
    </div>
-    <br>
+    <hr>
    <div>
-       <span>מצרכים</span>
+       <span>הוסף מצרך:</span>
    </div>
-    <br>
    <div >
        <span>שם מצרך:</span>
        <input ng-model = 'component'>
 
    </div>
    <div>
-       <span>כמות:</span>
+       <span>   כמות:</span>
        <input ng-model = 'amount'>
    </div>
+    <hr>
 
    <button type="button" align="center" class="btn btn-primary" ng-model="components" ng-click='addOneRecipe()' btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
     add recipe
@@ -48,10 +34,10 @@
        console
     </button>
     <br>
-    <br>
 
+    <h3> טבלת מצרכים</h3>
+    <hr>
    <table class="tablePadding">
-       <caption class="tablePadding"><h3> טבלת מצרכים</h3></caption>
        <tr class="tablePadding" ng-repeat="component in recipe.components">
            <td class="tablePadding">{{component.component}}</td>
            <td class="tablePadding">{{component.amount}}</td>
@@ -59,13 +45,7 @@
        </tr>
    </table>
 
-   <a href="#/Add_Recipe_Part2" ng-click="nextPage()">הבא</a>
-    <button ng-click="postRecipe()">postMe</button>
-
-
-
-
+   <a href="#/Add_Recipe_Part2" ng-click="nextPage()"><h3>הבא</h3></a>
 
 </div>
-</div>
-    </div>
+

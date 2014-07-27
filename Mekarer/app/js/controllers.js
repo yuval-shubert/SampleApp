@@ -7,14 +7,8 @@ angular.module('myApp.controllers', []).
   controller('MyCtrl1', [function() {
 
   }])
-    .controller('AddRecipe',['$scope','$http','addRecipeProperty',function($scope,$http,addRecipeProperty) {
-        $scope.recipe = {
-            name : '',
-            owner : '',
-            components : [],
-            description: 'insert here your description',
-            pictures: []
-        };
+    .controller('AddRecipe',['$scope','$http','recipeService',function($scope,$http,recipeService) {
+        $scope.recipe = recipeService.getRecipe();
 
 
         $scope.component ='';
@@ -38,7 +32,11 @@ angular.module('myApp.controllers', []).
             $scope.recipe.components.splice(index,1);
         };
 
-
+        $scope.$watch('recipe', function(recipe){
+            console.log('recipe was changed');
+            recipeService.setRecipe(recipe);
+            console.log(JSON.stringify(recipeService.getRecipe()))
+        }, true);
 
         $scope.addOneRecipe = function(){
 
@@ -59,25 +57,25 @@ angular.module('myApp.controllers', []).
             $http.post(server_ip+':8080', {}).success(alert('success'));
         };
 
-        $scope.$watch('$routeUpdate', function(){
-            console.log(JSON.stringify($scope.recipe));
-            addRecipeProperty.setRecipe($scope.recipe);
-            console.log('property object ' + JSON.stringify(addRecipeProperty.getProperty));
-        });
 
 
         $scope.loadRecipe = function(){
-            alert('load recipe');
-            this.recipe = addRecipeProperty.getRecipe();
+            this.recipe = recipeService.getRecipe();
             console.log('load recipe ' + JSON.stringify(this.recipe));
         };
 
         $scope.initRecipe = function(){
-           addRecipeProperty.setRecipe(this.recipe) ;
+           recipeService.setRecipe( {
+               name : '',
+               owner : '',
+               components : [],
+               description: 'insert here your description',
+               pictures: []
+           }) ;
         };
 
         $scope.nextPage = function(){
-            addRecipeProperty.setRecipe(this.recipe);
+            recipeService.setRecipe(this.recipe);
         };
 
         $scope.printConsole = function(){
@@ -115,7 +113,13 @@ angular.module('myApp.controllers', []).
                 recipe : this.recipe
             }).success(function(data, status, headers, config) {
                 alert("Success");
-                this.initRecipe();
+                recipeService.setRecipe( {
+                    name : '',
+                    owner : '',
+                    components : [],
+                    description: 'insert here your description',
+                    pictures: []
+                }) ;
             }).error(function(){alert("yuval sucks")});
         }
     }])
