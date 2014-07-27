@@ -25,16 +25,37 @@ server.post({path : PATH_SEARCH , version: '0.0.1'} ,searchRecipe);
 function searchRecipe(req, res, next){
     console.log('get search for recipe request.');
     console.log( req.params.ingredients);
+    var ingredients = req.params.ingredients;
 
+    recipeCollection.findRecipe(req,function(result){
+        console.log('result - ' + JSON.stringify(result));
+        addRanksToRecipes(result,ingredients);
+        console.log('result  after add ranks- ' + JSON.stringify(result));
 
-
-    recipeCollection.findRecipe(req,res);
-
-
+    });
 
 
 }
 
+function addRanksToRecipes(recipes,ingredients){
+    console.log('addRanksToRecipes');
+    var matching_counter = 0;
+    for (var i =0; i< recipes.length; i++){
+        var components = recipes[i].components;
+        for (var j =0; j < components.length; j++) {
+            var component = components[j];
+            if (ingredients.indexOf(component.component) >= 0) {
+                matching_percent += 1;
+                console.log('addRanksToRecipes' + matching_percent);
+            }
+        }
+        recipes[i].rank.componentCovered =  matching_counter / recipes[i].components.length ;
+        recipes[i].rank.componentInUse =  matching_counter;
+
+    }
+
+
+}
 
 function getRecipe(req, res , next){
     var recipe = {

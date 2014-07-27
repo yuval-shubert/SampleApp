@@ -23,21 +23,21 @@ exports.testRecipe = function(){
     console.log('hello');
 }
 
-exports.findRecipe = function(req, res) {
+exports.findRecipe = function(req, ret) {
     var query = '{"components.component": { $in: [';
     var ingredients = req.params.ingredients;
     for(var i = 0; i < ingredients.length; i++) {
         if (i != 0 )
             query += ','
-        query += "'" + ingredients[i].component +"'";
+        query += "'" + ingredients[i] +"'";
     }
 
     query += ' ] } }'
     console.log('query for find:' +query)
     db.collection('recipes', function(err, collection) {
         collection.find(this.query).toArray(function(err, items) {
-            res.send(items);
             console.log('items retrieved from DB: ' + JSON.stringify(items));
+            ret(items);
         });
     });
 };

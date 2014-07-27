@@ -1,6 +1,6 @@
 'use strict';
 
-var server_ip = 'http://10.0.0.4';
+var server_ip = 'http://127.0.0.1';
 /* Controllers */
 
 angular.module('myApp.controllers', []).
@@ -181,9 +181,9 @@ angular.module('myApp.controllers', []).
                 return;
             }
 
-            this.query.components.push({
-                component: this.component
-            });
+            this.query.components.push(
+                this.component
+            );
             this.component = '';
         };
         $scope.deleteComponent = function(index) {
