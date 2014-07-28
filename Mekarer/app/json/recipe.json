@@ -1,0 +1,11 @@
+{
+    "name" : "",
+    "owner" : "",
+    "components" : [],
+    "description" : "insert here your description",
+    "pictures": [],
+    "rank" : {
+        "componentCovered" : 0,
+        "componentInUse" : 0
+    }
+}

@@ -22,6 +22,22 @@ server.get({path : PATH , version : '0.0.1'} , getRecipe);
 server.post({path : PATH , version: '0.0.1'} ,postNewRecipe);
 server.post({path : PATH_SEARCH , version: '0.0.1'} ,searchRecipe);
 
+ function recipeCompare(a,b) {
+    if (a.rank.componentCovered > b.rank.componentCovered)
+        return 1;
+
+    if (a.rank.componentCovered < b.rank.componentCovered)
+        return -1;
+
+    if (a.rank.componentInUse > b.rank.componentInUse)
+        return 1;
+
+    if (a.rank.componentInUse < b.rank.componentInUse)
+        return -1;
+
+    return 0;
+}
+
 function searchRecipe(req, res, next){
     console.log('get search for recipe request.');
     console.log( req.params.ingredients);
@@ -30,7 +46,9 @@ function searchRecipe(req, res, next){
     recipeCollection.findRecipe(req,function(result){
         console.log('result - ' + JSON.stringify(result));
         addRanksToRecipes(result,ingredients);
+        result.sort(recipeCompare);
         console.log('result  after add ranks- ' + JSON.stringify(result));
+
     });
 
 }
@@ -43,17 +61,17 @@ function addRanksToRecipes(recipes,ingredients){
         for (var j =0; j < components.length; j++) {
             var component = components[j];
             if (ingredients.indexOf(component.component) >= 0) {
-                matching_percent += 1;
-                console.log('addRanksToRecipes' + matching_percent);
+                matching_counter += 1;
+                console.log('addRanksToRecipes' + matching_counter);
             }
         }
         recipes[i].rank.componentCovered =  matching_counter / recipes[i].components.length ;
         recipes[i].rank.componentInUse =  matching_counter;
 
     }
-
-
 }
+
+
 
 function getRecipe(req, res , next){
     var recipe = {

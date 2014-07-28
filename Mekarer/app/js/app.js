@@ -26,12 +26,12 @@ config(['$routeProvider', function($routeProvider) {
         var RecipeSearchResult = '';
 
         return {
-            getProperty: function () {
+                getProperty: function () {
                                      return RecipeSearchResult;
                         },
-            setProperty: function (value) {
-                RecipeSearchResult = value;
-            }
+                setProperty: function (value) {
+                                    RecipeSearchResult = value;
+                            }
         }
     })
         .service('recipeService',function(){
@@ -40,7 +40,8 @@ config(['$routeProvider', function($routeProvider) {
                 owner : '',
                 components : [],
                 description: 'insert here your description',
-                pictures: []
+                pictures: [],
+                rank :{}
             };
 
             return {

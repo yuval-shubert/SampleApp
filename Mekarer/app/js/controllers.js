@@ -70,7 +70,8 @@ angular.module('myApp.controllers', []).
                owner : '',
                components : [],
                description: 'insert here your description',
-               pictures: []
+               pictures: [],
+               rank: {}
            }) ;
         };
 
@@ -118,7 +119,8 @@ angular.module('myApp.controllers', []).
                     owner : '',
                     components : [],
                     description: 'insert here your description',
-                    pictures: []
+                    pictures: [],
+                    rank :{}
                 }) ;
             }).error(function(){alert("yuval sucks")});
         }
