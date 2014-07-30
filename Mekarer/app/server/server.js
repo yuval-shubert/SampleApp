@@ -43,11 +43,12 @@ function searchRecipe(req, res, next){
     console.log( req.params.ingredients);
     var ingredients = req.params.ingredients;
 
-    recipeCollection.findRecipe(req,function(result){
+    recipeCollection.findRecipe(req,res,function(result,response){
         console.log('result - ' + JSON.stringify(result));
         addRanksToRecipes(result,ingredients);
-        result.sort(recipeCompare);
+      // result.sort(recipeCompare);
         console.log('result  after add ranks- ' + JSON.stringify(result));
+        response.send(result);
 
     });
 

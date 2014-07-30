@@ -19,21 +19,9 @@ config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/Add_Recipe', {templateUrl: 'partials/Add_Recipe.html', controller: 'AddRecipe'});
   $routeProvider.when('/Add_Recipe_Part2', {templateUrl: 'partials/Add_Recipe_Part2.html', controller: 'AddRecipe'});
   $routeProvider.when('/Add_Recipe_Part3', {templateUrl: 'partials/Add_Recipe_Part3.html', controller: 'AddRecipe'});
-  $routeProvider.when('/Search_Result', {templateUrl: 'partials/Recipe_Search_Result.html', controller: 'RecipeSearchResultCtrl'});
+  $routeProvider.when('/Results', {templateUrl: 'partials/Results.html', controller: 'searchResultCtr'});
   $routeProvider.otherwise({redirectTo: '/Search_Recipe.html'});
 }])
-    .service('sharedProperties', function () {
-        var RecipeSearchResult = '';
-
-        return {
-                getProperty: function () {
-                                     return RecipeSearchResult;
-                        },
-                setProperty: function (value) {
-                                    RecipeSearchResult = value;
-                            }
-        }
-    })
         .service('recipeService',function(){
             var recipeProperty = {
                 name : '',
@@ -53,7 +41,20 @@ config(['$routeProvider', function($routeProvider) {
                 }
             }
 
-        });
+        })
+    .service('searchResultService',function(){
+            var results = [];
+
+            return {
+                getServiceResults: function(){
+                    return results;
+                },
+                setServiceResults: function(value){
+                    results = value;
+                }
+            }
+
+    });
 
 
 

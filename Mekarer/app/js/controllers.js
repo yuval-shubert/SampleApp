@@ -174,7 +174,7 @@ angular.module('myApp.controllers', []).
             });
         }
     }])
-  .controller('SearchRecipeCtrl', ['$scope','$http','$location','sharedProperties',function($scope,$http,$location, sharedProperties ) {
+  .controller('SearchRecipeCtrl', ['$scope','$http','$location','searchResultService',function($scope,$http,$location, searchResultService ) {
         $scope.query = {
             components : []
         };
@@ -197,24 +197,35 @@ angular.module('myApp.controllers', []).
         };
 
         $scope.searchForRecipes = function(){
-            console.log('Components send'+ JSON.stringify(this.query.components))
-            $http.post(server_ip + ':8080/search_recipe', {
+            console.log('Components send'+ JSON.stringify(this.query.components));
+
+            $http.post('http://127.0.0.1:8080/search_recipe', {
                 ingredients : this.query.components
             }).success(function (data, status, headers, config) {
-                $scope.result = JSON.stringify(data);
-                sharedProperties.setProperty("5");
-                console.log('retrieved from DB'+JSON.stringify(data));
-                $location.path("/Search_Result");
+                searchResultService.setServiceResults(data);
+                console.log('retrieved from DB' + JSON.stringify(data));
+                console.log('service ' + JSON.stringify(searchResultService.getServiceResults()))
             }).error(function () {
-                alert("yuval sucks");
+                alert('error in retrieving results.');
             })
         };
 
             }])
-    .controller('RecipeSearchResultCtrl', ['$scope','$http','sharedProperties',function($scope,$http,$location, sharedProperties ) {
+    .controller('searchResultCtr', ['$scope','$http','searchResultService',function($scope,$http,$location,searchResultService) {
           /* $scope.test1 = sharedProperties.getProperty();
            console.log(sharedProperties.getProperty());*/
-           console.log("hey");
+         $scope.recipeResults = searchResultService.getServiceResults();
+
+         $scope.loadResults = function(){
+             console.log('load Results');
+             this.recipeResults = searchResultService.getServiceResults();
+
+             console.log(JSON.stringify(this.recipeResults));
+//             console.log('load results function - ' + JSON.stringify(searchResultService.getServiceResults()));
+
+         }
+
+
 
 
     }]);

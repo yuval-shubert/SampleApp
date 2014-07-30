@@ -23,7 +23,7 @@ exports.testRecipe = function(){
     console.log('hello');
 }
 
-exports.findRecipe = function(req, ret) {
+exports.findRecipe = function(req,res, ret) {
     var query = '{"components.component": { $in: [';
     var ingredients = req.params.ingredients;
     for(var i = 0; i < ingredients.length; i++) {
@@ -37,7 +37,7 @@ exports.findRecipe = function(req, ret) {
     db.collection('recipes', function(err, collection) {
         collection.find(this.query).toArray(function(err, items) {
             console.log('items retrieved from DB: ' + JSON.stringify(items));
-            ret(items);
+            ret(items,res);
         });
     });
 };

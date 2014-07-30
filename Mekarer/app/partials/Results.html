@@ -1,0 +1,13 @@
+<div dir="rtl" ng-controller="searchResultCtr"  align="center>
+
+    <h3> Search Result: </h3>
+
+    <table class="tablePadding">
+        <tr class="tablePadding" ng-repeat="recipe in recipeResults">
+            <td class="tablePadding">{{recipe.name}}</td>
+            <td class="tablePadding">{{JSON.stringify(recipe.rank)}}</td>
+            <td class="tablePadding">{{JSON.stringify(recipe.components)}}</td>
+        </tr>
+    </table>
+
+</div>
