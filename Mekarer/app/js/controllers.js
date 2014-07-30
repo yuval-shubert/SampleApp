@@ -3,83 +3,81 @@
 var server_ip = 'http://127.0.0.1';
 /* Controllers */
 
-angular.module('myApp.controllers', []).
-  controller('MyCtrl1', [function() {
+angular.module('myApp.controllers',[]).controller('MyCtrl1', [function () {
 
-  }])
-    .controller('AddRecipe',['$scope','$http','recipeService',function($scope,$http,recipeService) {
+    }])
+    .controller('AddRecipe', ['$scope', '$http', 'recipeService', function ($scope, $http, recipeService) {
         $scope.recipe = recipeService.getRecipe();
 
 
-        $scope.component ='';
-        $scope.amount  = '';
+        $scope.component = '';
+        $scope.amount = '';
 
 
-        $scope.uploadFile = function(files) {
+        $scope.uploadFile = function (files) {
             var fd = new FormData();
             //Take the first selected file
             fd.append("file", files[0]);
 
             /*$http.post(uploadUrl, fd, {
-                withCredentials: true,
-                headers: {'Content-Type': undefined },
-                transformRequest: angular.identity
-            }).success('success' ).error('error!');
-            */
+             withCredentials: true,
+             headers: {'Content-Type': undefined },
+             transformRequest: angular.identity
+             }).success('success' ).error('error!');
+             */
         };
 
-        $scope.deleteComponent = function(index) {
-            $scope.recipe.components.splice(index,1);
+        $scope.deleteComponent = function (index) {
+            $scope.recipe.components.splice(index, 1);
         };
 
-        $scope.$watch('recipe', function(recipe){
+        $scope.$watch('recipe', function (recipe) {
             console.log('recipe was changed');
             recipeService.setRecipe(recipe);
             console.log(JSON.stringify(recipeService.getRecipe()))
         }, true);
 
-        $scope.addOneRecipe = function(){
+        $scope.addOneRecipe = function () {
 
-            if (this.component == '' || this.amount == ''){
+            if (this.component == '' || this.amount == '') {
                 return;
             }
 
-              this.recipe.components.push({
-                  component: this.component,
-                  amount: this.amount
-              });
+            this.recipe.components.push({
+                component: this.component,
+                amount: this.amount
+            });
 
             this.component = '';
             this.amount = '';
         };
 
-        $scope.sendRecipe = function(){
-            $http.post(server_ip+':8080', {}).success(alert('success'));
+        $scope.sendRecipe = function () {
+            $http.post(server_ip + ':8080', {}).success(alert('success'));
         };
 
 
-
-        $scope.loadRecipe = function(){
+        $scope.loadRecipe = function () {
             this.recipe = recipeService.getRecipe();
             console.log('load recipe ' + JSON.stringify(this.recipe));
         };
 
-        $scope.initRecipe = function(){
-           recipeService.setRecipe( {
-               name : '',
-               owner : '',
-               components : [],
-               description: 'insert here your description',
-               pictures: [],
-               rank: {}
-           }) ;
+        $scope.initRecipe = function () {
+            recipeService.setRecipe({
+                name: '',
+                owner: '',
+                components: [],
+                description: 'insert here your description',
+                pictures: [],
+                rank: {}
+            });
         };
 
-        $scope.nextPage = function(){
+        $scope.nextPage = function () {
             recipeService.setRecipe(this.recipe);
         };
 
-        $scope.printConsole = function(){
+        $scope.printConsole = function () {
             console.log(JSON.stringify(this.recipe));
         };
 
@@ -94,10 +92,10 @@ angular.module('myApp.controllers', []).
 
         $scope.ismeridian = false;
 
-        $scope.update = function() {
+        $scope.update = function () {
             var d = new Date();
-            d.setHours( 14 );
-            d.setMinutes( 0 );
+            d.setHours(14);
+            d.setMinutes(0);
             $scope.mytime = d;
         };
 
@@ -105,39 +103,42 @@ angular.module('myApp.controllers', []).
             console.log('Time changed to: ' + $scope.mytime);
         };
 
-        $scope.clear = function() {
+        $scope.clear = function () {
             $scope.mytime = null;
         };
 
-        $scope.postRecipe = function(){
+        $scope.postRecipe = function () {
             $http.post(server_ip + ':8080/recipe', {
-                recipe : this.recipe
-            }).success(function(data, status, headers, config) {
+                recipe: this.recipe
+            }).success(function (data, status, headers, config) {
                 alert("Success");
-                recipeService.setRecipe( {
-                    name : '',
-                    owner : '',
-                    components : [],
+                recipeService.setRecipe({
+                    name: '',
+                    owner: '',
+                    components: [],
                     description: 'insert here your description',
                     pictures: [],
-                    rank :{}
-                }) ;
-            }).error(function(){alert("yuval sucks")});
+                    rank: {}
+                });
+            }).error(function () {
+                alert("yuval sucks")
+            });
         }
     }])
 
-  .controller('MyCtrl2', [function() {
+    .controller('MyCtrl2', [function () {
 
-  }])
-  .controller('MyCtrl3', [function() {
+    }])
+    .controller('MyCtrl3', [function () {
 
-  }])
+    }])
 
-    .controller('FacebookLoginCtrl', ['$scope','$http',function($scope,$http,$location) {
-        $scope.startUp = function(d, s, id) {
+    .controller('FacebookLoginCtrl', ['$scope', '$http', function ($scope, $http, $location) {
+        $scope.startUp = function (d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];
             if (d.getElementById(id)) return;
-            js = d.createElement(s); js.id = id;
+            js = d.createElement(s);
+            js.id = id;
             js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=615056888586794&version=v2.0";
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk')
@@ -169,21 +170,21 @@ angular.module('myApp.controllers', []).
         // Button.  See the onlogin handler attached to it in the sample
         // code below.
         $scope.checkLoginState = function checkLoginState() {
-            FB.getLoginStatus(function(response) {
+            FB.getLoginStatus(function (response) {
                 statusChangeCallback(response);
             });
         }
     }])
-  .controller('SearchRecipeCtrl', ['$scope','$http','$location','searchResultService',function($scope,$http,$location, searchResultService ) {
+    .controller('SearchRecipeCtrl', ['$scope', '$http', '$location', 'searchResultService', function ($scope, $http, $location, searchResultService) {
         $scope.query = {
-            components : []
+            components: []
         };
 
         $scope.component = '';
 
 
-        $scope.addOneRecipe = function(){
-            if (this.component == ''){
+        $scope.addOneRecipe = function () {
+            if (this.component == '') {
                 return;
             }
 
@@ -192,40 +193,35 @@ angular.module('myApp.controllers', []).
             );
             this.component = '';
         };
-        $scope.deleteComponent = function(index) {
-            $scope.query.components.splice(index,1);
+        $scope.deleteComponent = function (index) {
+            $scope.query.components.splice(index, 1);
         };
 
-        $scope.searchForRecipes = function(){
-            console.log('Components send'+ JSON.stringify(this.query.components));
-
+        $scope.searchForRecipes = function () {
+            console.log('Components send' + JSON.stringify(this.query.components));
             $http.post('http://127.0.0.1:8080/search_recipe', {
-                ingredients : this.query.components
+                ingredients: this.query.components
             }).success(function (data, status, headers, config) {
                 searchResultService.setServiceResults(data);
                 console.log('retrieved from DB' + JSON.stringify(data));
-                console.log('service ' + JSON.stringify(searchResultService.getServiceResults()))
+                console.log('service ' + JSON.stringify(searchResultService.getServiceResults()));
+                $location.path('/Results');
             }).error(function () {
                 alert('error in retrieving results.');
             })
         };
 
-            }])
-    .controller('searchResultCtr', ['$scope','$http','searchResultService',function($scope,$http,$location,searchResultService) {
-          /* $scope.test1 = sharedProperties.getProperty();
-           console.log(sharedProperties.getProperty());*/
-         $scope.recipeResults = searchResultService.getServiceResults();
+    }])
+    .controller('searchResultCtr', ['$scope','searchResultService', function ($scope,searchResultService) {
 
-         $scope.loadResults = function(){
-             console.log('load Results');
-             this.recipeResults = searchResultService.getServiceResults();
+        $scope.recipeResults = searchResultService.getServiceResults();
 
-             console.log(JSON.stringify(this.recipeResults));
-//             console.log('load results function - ' + JSON.stringify(searchResultService.getServiceResults()));
-
-         }
-
-
-
+//
+//        $scope.loadResults = function () {
+//            console.log('load Results');
+//            this.recipeResults = searchResultService.getServiceResults();
+//            console.log(JSON.stringify(this.recipeResults));
+////             console.log('load results function - ' + JSON.stringify(searchResultService.getServiceResults()));
+//        }
 
     }]);

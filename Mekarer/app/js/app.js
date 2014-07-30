@@ -1,7 +1,6 @@
 'use strict';
-
-
 // Declare app level module which depends on filters, and services
+
 angular.module('myApp', [
   'ngRoute',
   'myApp.filters',
@@ -21,40 +20,7 @@ config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/Add_Recipe_Part3', {templateUrl: 'partials/Add_Recipe_Part3.html', controller: 'AddRecipe'});
   $routeProvider.when('/Results', {templateUrl: 'partials/Results.html', controller: 'searchResultCtr'});
   $routeProvider.otherwise({redirectTo: '/Search_Recipe.html'});
-}])
-        .service('recipeService',function(){
-            var recipeProperty = {
-                name : '',
-                owner : '',
-                components : [],
-                description: 'insert here your description',
-                pictures: [],
-                rank :{}
-            };
-
-            return {
-                getRecipe: function () {
-                    return recipeProperty;
-                },
-                setRecipe: function (value) {
-                    recipeProperty = value;
-                }
-            }
-
-        })
-    .service('searchResultService',function(){
-            var results = [];
-
-            return {
-                getServiceResults: function(){
-                    return results;
-                },
-                setServiceResults: function(value){
-                    results = value;
-                }
-            }
-
-    });
+}]);
 
 
 
